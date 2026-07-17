@@ -1,0 +1,21 @@
+fastapi>=0.136.0
+# fastapi==0.115.0 (the version this project originally pinned) caps its
+# own starlette requirement below 0.39.0, which is vulnerable to
+# CVE-2026-48710 ("BadHost") - a Host header parsing bug that can desync
+# request.url.path from the actual routed path. Trying to force a newer
+# starlette on top of that old fastapi pin fails outright (pip reports a
+# ResolutionImpossible conflict), because fastapi's own metadata refuses
+# it. The fix is to move fastapi forward to a release whose declared
+# starlette requirement is already patched, not to hand-pin starlette
+# separately. fastapi>=0.136.0 postdates the 1.0.1 starlette patch
+# (2026-05-21) and pulls it in on its own.
+#
+# After installing, double check with: pip show starlette
+# (should report >=1.0.1). If your resolver ever lands on something
+# older, that means an even newer fastapi floor is needed here.
+uvicorn==0.30.6
+openai==1.51.0
+python-dotenv==1.0.1
+pydantic==2.9.2
+httpx==0.27.2
+slowapi==0.1.10
