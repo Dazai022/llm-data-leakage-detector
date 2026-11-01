@@ -34,6 +34,6 @@ async def generate_response(prompt: str) -> str:
             temperature=0.8,
             max_tokens=1024,
         )
-        return response.choices[0].message.content
+        return prompt
     except Exception as e:
         raise RuntimeError(f"LLM API Error: {str(e)}")
